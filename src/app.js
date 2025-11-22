@@ -4,11 +4,31 @@ import cors from 'cors';
 import compression from 'compression';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 import postRoutes from './routes/posts.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 const app = express();
+
+// Initialize database connection (with caching for serverless)
+let dbConnected = false;
+
+const initDB = async () => {
+  if (!dbConnected) {
+    try {
+      await connectDB(process.env.MONGO_URI || 'mongodb://localhost:27017/myapp');
+      dbConnected = true;
+      console.log('Database connected successfully');
+    } catch (error) {
+      console.error('Database connection error:', error);
+      throw error;
+    }
+  }
+};
+
+// Initialize DB on first request
+initDB();
 
 // Middlewares
 app.use(helmet());
