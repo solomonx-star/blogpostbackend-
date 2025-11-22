@@ -1,21 +1,20 @@
 import Post from "../models/Post.js";
 import User from "../models/User.js";
+import logger from "../utils/logger.js";
 
 export const createPost = async (req, res, next) => {
   try {
-    const { title, content } = req.body;
-    const postExist = await Post.findOne({ title, content });
+    const { title, content, authorName, category } = req.body;
+    const postExist = await Post.findOne({ title, content, authorName, category });
     if (postExist)
       return res.status(400).json({ message: "Blog post already exists" });
-    const data = await Post.create({ title, content });
-    res
-      .status(201)
-      .json({
-        status: "Success",
-        message: "Blog posted successfully",
-        statusCode: 201,
-        data,
-      });
+    const data = await Post.create({ title, content, authorName, category  });
+    res.status(201).json({
+      status: "Success",
+      message: "Blog posted successfully",
+      statusCode: 201,
+      data,
+    });
   } catch (error) {
     next(error);
   }
@@ -24,7 +23,15 @@ export const createPost = async (req, res, next) => {
 export const getAllPosts = async (req, res, next) => {
   try {
     const data = await Post.find();
-    res.json({ message: "Success", statusCode: 200, data });
+    logger.info(`Retrieved ${data.length} posts`);
+
+    // Explicitly set status code
+    res.status(200).json({
+      statusCode: 200,
+      message: "Success",
+      count: data.length,
+      data,
+    });
   } catch (error) {
     next(error);
   }
@@ -61,7 +68,7 @@ export const updatePost = async (req, res, next) => {
     data.content = content;
 
     const updatedPost = await data.save();
-    res.json({message: "Success", statusCode: 200, updatedPost});
+    res.json({ message: "Success", statusCode: 200, updatedPost });
   } catch (error) {
     next(error);
   }

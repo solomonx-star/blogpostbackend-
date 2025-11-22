@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { body, validationResult } from 'express-validator';
-import { register, login } from '../controllers/authController.js';
+import { register, login, getProfile, logout } from '../controllers/authController.js';
+import auth from '../middlewares/auth.js';
 
 const router = Router();
 
 router.post(
   '/register',
   [
-    body('name').notEmpty().withMessage('Name required'),
+    body('username').notEmpty().withMessage('Name required'),
     body('email').isEmail().withMessage('Valid email required'),
     body('password').isLength({ min: 6 }).withMessage('Password min 6 chars'),
   ],
@@ -30,5 +31,10 @@ router.post(
     login(req, res, next);
   }
 );
+
+
+router.get('/getProfile/:userId', getProfile, auth);
+
+router.post('/logout', logout);
 
 export default router;
