@@ -5,7 +5,7 @@ import connectDB from './config/db.js';
 import logger from './utils/logger.js';
 
 // Fly.io sets PORT to 8080 by default
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 (async () => {
   try {

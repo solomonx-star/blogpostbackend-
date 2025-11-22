@@ -1,7 +1,7 @@
 # fly.toml app configuration file
 # See https://fly.io/docs/reference/configuration/ for information
 
-app = "blogpostbackend" # Change this to your app name
+app = "blogpostbackend-22" # Change this to your app name
 
 primary_region = "iad" # Change to your preferred region (iad = US East)
 
