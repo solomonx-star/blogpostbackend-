@@ -36,6 +36,13 @@ export const login = async(req, res, next) => {
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
     const token = signToken(user);
+    res.cookie('authToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+    });
     res.json({ statusCode: 200, message: "success", user: { id: user._id, username: user.username, email: user.email }, token });
   } catch (err) {
     next(err);

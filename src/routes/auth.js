@@ -8,7 +8,7 @@ const router = Router();
 router.post(
   '/register',
   [
-    body('username').notEmpty().withMessage('Name required'),
+    body('username').notEmpty().withMessage('Username required'),
     body('email').isEmail().withMessage('Valid email required'),
     body('password').isLength({ min: 6 }).withMessage('Password min 6 chars'),
   ],
@@ -33,7 +33,7 @@ router.post(
 );
 
 
-router.get('/getProfile/:userId', getProfile, auth);
+router.get('/getProfile/:userId', auth, getProfile);
 
 router.post('/logout', logout);
 

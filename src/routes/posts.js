@@ -19,8 +19,8 @@ router.post(
     body("category").notEmpty(),
     body("authorName").notEmpty(),
   ],
-  createPost,
-  auth
+  auth,
+  createPost
 );
 
 router.get("/all-posts", getAllPosts);
@@ -35,10 +35,10 @@ router.put(
     body("category").notEmpty(),
     body("authorName").notEmpty(),
   ],
-  updatePost,
-  auth
+  auth,
+  updatePost
 );
 
-router.delete("/delete/:id", deletePost, auth);
+router.delete("/delete/:id", auth, deletePost);
 
 export default router;

@@ -5,7 +5,12 @@ import logger from "../utils/logger.js";
 export const createPost = async (req, res, next) => {
   try {
     const { title, content, authorName, category } = req.body;
-    const postExist = await Post.findOne({ title, content, authorName, category });
+    
+    if (!title || !content || !authorName || !category) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    
+    const postExist = await Post.findOne({ title, authorName });
     if (postExist)
       return res.status(400).json({ message: "Blog post already exists" });
     const data = await Post.create({ title, content, authorName, category  });
