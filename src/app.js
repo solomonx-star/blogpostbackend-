@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js';
 import postRoutes from './routes/posts.js';
+import commentRoutes from './routes/comments.js';
 import errorHandler from './middlewares/errorHandler.js';
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(limiter);
 app.get('/', (req, res) => res.json({ message: 'API is running' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/comments', commentRoutes);
 
 // Error handler (last)
 app.use(errorHandler);

@@ -2,7 +2,7 @@
 FROM node:20-alpine
 
 # Set working directory
-WORKDIR /app
+WORKDIR /src
 
 # Copy package files
 COPY package*.json ./
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["node", "src/server.js"]

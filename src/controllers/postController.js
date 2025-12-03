@@ -4,16 +4,24 @@ import logger from "../utils/logger.js";
 
 export const createPost = async (req, res, next) => {
   try {
-    const { title, content, authorName, category } = req.body;
+    const { title, content, category } = req.body;
     
-    if (!title || !content || !authorName || !category) {
+    if (!title || !content || !category) {
       return res.status(400).json({ message: "All fields are required" });
     }
     
-    const postExist = await Post.findOne({ title, authorName });
+    const author = req.user?.id || req.user?._id;
+
+    if (!author) {
+      return res.status(401).json({ message: "Authentication required" });
+    }
+    
+    const postExist = await Post.findOne({ title, content });
     if (postExist)
       return res.status(400).json({ message: "Blog post already exists" });
-    const data = await Post.create({ title, content, authorName, category  });
+    
+    const data = await Post.create({ title, content, category, author });
+    
     res.status(201).json({
       status: "Success",
       message: "Blog posted successfully",
@@ -94,6 +102,17 @@ export const deletePost = async (req, res, next) => {
 
     await post.deleteOne();
     res.json({ message: "Post removed" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPostsByAuthor = async (req, res, next) => {
+  const authorId = req.params.authorId;
+  try {
+    const data = await Post.find({ author: authorId });
+    if (!data) return res.status(404).json({ message: "No posts found for this author" });
+    res.json({ message: "Success", statusCode: 200, data });
   } catch (error) {
     next(error);
   }

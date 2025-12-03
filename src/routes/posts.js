@@ -6,6 +6,7 @@ import {
   getPostById,
   updatePost,
   deletePost,
+  getPostsByAuthor,
 } from "../controllers/postController.js";
 import auth from "../middlewares/auth.js";
 
@@ -40,5 +41,7 @@ router.put(
 );
 
 router.delete("/delete/:id", auth, deletePost);
+
+router.get("/author/:authorId", auth, getPostsByAuthor);
 
 export default router;

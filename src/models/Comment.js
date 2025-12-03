@@ -1,14 +1,12 @@
-
 import { Schema, model } from 'mongoose';
 
-const postSchema = new Schema(
+const commentSchema = new Schema(
   {
-    title: { type: String, required: true, trim: true },
     content: { type: String, required: true },
-    category: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    post: { type: Schema.Types.ObjectId, ref: 'Post', required: true },
   },
   { timestamps: true }
 );
 
-export default model('Post', postSchema);
+export default model('Comment', commentSchema);
