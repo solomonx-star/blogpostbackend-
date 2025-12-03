@@ -1,7 +1,7 @@
 {
   "name": "blogpostbackend",
   "version": "1.0.0",
-  "main": "api/index.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/server.js",
