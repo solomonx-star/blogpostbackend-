@@ -7,6 +7,7 @@ const postSchema = new Schema(
     content: { type: String, required: true },
     category: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    blogPhoto: { type: String, default: "" },
   },
   { timestamps: true }
 );

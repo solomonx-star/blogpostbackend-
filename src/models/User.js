@@ -11,8 +11,10 @@ const userSchema = new Schema(
       trim: true,
     },
     password: { type: String, required: true },
+    //  blogPhoto: { type: String, default: ""},
     // role: { type: String, enum: ["user", "admin"], default: "user" },
   },
+ 
   { timestamps: true }
 );
 

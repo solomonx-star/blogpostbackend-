@@ -7,11 +7,11 @@
     "start": "cross-env NODE_ENV=production node src/server.js",
     "vercel-build": "echo 'Building for Vercel'",
     "dev": "nodemon --watch src --exec \"node --enable-source-maps src/server.js\"",
-     "deploy": "vercel --prod",
+    "deploy": "vercel --prod",
     "lint": "eslint . --ext .js,.cjs,.mjs",
     "format": "prettier --write ."
   },
- "keywords": [
+  "keywords": [
     "nodejs",
     "express",
     "vercel",
@@ -22,6 +22,7 @@
   "description": "Node.js Express API deployed on Vercel",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.8.0",
     "compression": "^1.8.1",
     "cors": "^2.8.5",
     "cross-env": "^10.0.0",
@@ -44,7 +45,7 @@
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2"
   },
-    "engines": {
+  "engines": {
     "node": ">=18.x"
   }
 }

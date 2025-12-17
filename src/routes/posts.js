@@ -9,6 +9,7 @@ import {
   getPostsByAuthor,
 } from "../controllers/postController.js";
 import auth from "../middlewares/auth.js";
+import { uploadSingle, handleMulterError } from "../middlewares/upload.js";
 
 const router = Router();
 
@@ -18,9 +19,12 @@ router.post(
     body("title").notEmpty(),
     body("content").notEmpty(),
     body("category").notEmpty(),
+    body("blogPhoto").notEmpty(),
     body("authorName").notEmpty(),
   ],
   auth,
+  uploadSingle,
+  handleMulterError,
   createPost
 );
 

@@ -43,7 +43,7 @@ export const login = async(req, res, next) => {
       path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
-    res.json({ statusCode: 200, message: "success", user: { id: user._id, username: user.username, email: user.email }, token });
+    res.json({ statusCode: 200, message: "success", user: { id: user._id, username: user.username, email: user.email }, token});
   } catch (err) {
     next(err);
   }
