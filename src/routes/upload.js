@@ -10,13 +10,13 @@ const upload = multer({ storage });
 
 
 router.post(
-  "/blog-photo",
+  "/profile-photo",
   authMiddleware,
-  upload.single("blogPhoto"),
+  upload.single("profilePhoto"),
   uploadBlogPhoto
 );
 
-router.get("/blog-photo", authMiddleware, getBlogPhoto);
+router.get("/profile-photo", authMiddleware, getBlogPhoto);
 
 
 
